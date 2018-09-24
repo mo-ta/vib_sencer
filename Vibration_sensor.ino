@@ -1,10 +1,10 @@
-/*
+ :/*
 arduino-cli compile -b arduino:avr:uno SerialEvent
 arduino-cli upload -p COM3 -b arduino:avr:uno SerialEvent
 */
 #include <MsTimer2.h>
 
-#define VERSION "ver0.20 180921"
+#define VERSION "ver0.21 180924"
 
 #define COMMAND_CELL 3
 #define COM_BUF_SIZE  50
@@ -31,16 +31,16 @@ typedef struct MeasureOption
     unsigned int ain_pin;
     unsigned int comm_type;
 };
+struct MeasureOption opt;
 
 String inputString;                 // a String to hold incoming data
 
-bool   fStringComplete = false;    // whether the string is complete
+bool   fStringComplete = false;
 bool   fInSetting      = true;
 bool   fInCalc         = false;
 bool   f1stCycle       = true;
 String params[COMMAND_CELL];
 
-struct MeasureOption opt;
 
 unsigned long cnt_loop     = 0;
 unsigned long cnt_interval = 0;
@@ -75,7 +75,7 @@ void setup() {
     fInSetting = true;
 
     Serial.begin(BPS);
-    Serial.print("\n\nready:\n>");
+    Serial.print("\nready:\n>");
 }
 
 //mainloop
@@ -243,38 +243,56 @@ void execCmdGet(String arg[]){
 
     if(arg[1].equalsIgnoreCase("algolism"))
     {
-        Serial.println(opt.algolism);
+        Serial.print("[");
+        Serial.print(opt.algolism);
+        Serial.println("]");
     }
     else if(arg[1].equalsIgnoreCase("thresh"))
     {
+        Serial.print("[");
         Serial.println(opt.thresh);
+        Serial.println("]");
     }
     else if(arg[1].equalsIgnoreCase("interval"))
     {
+        Serial.print("[");
         Serial.println(opt.interval);
+        Serial.println("]");
     }
     else if(arg[1].equalsIgnoreCase("dout_pin"))
     {
+        Serial.print("[");
         Serial.println(opt.dout_pin);
+        Serial.println("]");
     }
     else if(arg[1].equalsIgnoreCase("ain_pin"))
     {
+        Serial.print("[");
         Serial.println(opt.ain_pin);
+        Serial.println("]");
     }
     else if(arg[1].equalsIgnoreCase("comm_type"))
     {
+        Serial.print("[");
         Serial.println(opt.comm_type);
+        Serial.println("]");
     }
     else if(arg[1].equalsIgnoreCase("bps")){
+        Serial.print("[");
         Serial.println(BPS);
+        Serial.println("]");
     }
     else if(arg[1].equalsIgnoreCase("version"))
     {
+        Serial.print("[");
         Serial.println(VERSION);
+        Serial.println("]");
     }
     else if(arg[1].equalsIgnoreCase("loop_count"))
     {
+        Serial.print("[");
         Serial.println(cnt_loop);
+        Serial.println("]");
     }
     else
     {
